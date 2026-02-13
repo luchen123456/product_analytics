@@ -21,7 +21,7 @@
 4) 启动 Serverless 本地开发（需安装 Vercel CLI）：`vercel dev`
 5) 创建任务：`POST /api/crawl/jobs`
 6) 查询任务：`GET /api/crawl/jobs/{jobId}`
-
+> 部署到 Vercel 时不需要在 `vercel.json` 为 Node 函数显式设置 runtime；如果你看到 “Function Runtimes must have a valid version …” 的报错，通常是 runtime 配置不被当前 Vercel schema 接受，删除该字段即可。
 **建议的环境变量**
 - `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN`：用于存储 job 状态（未配置时会退化为内存存储，不适合线上）。
 - `INTERNAL_API_KEY`：Worker 回写 job 状态用（请求头 `x-internal-key`，线上建议必配）。
