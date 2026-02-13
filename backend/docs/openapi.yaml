@@ -1,0 +1,82 @@
+openapi: 3.0.3
+info:
+  title: Product Analytics Backend
+  version: 0.1.0
+servers:
+  - url: /api
+paths:
+  /health:
+    get:
+      summary: Health check
+      responses:
+        "200":
+          description: OK
+  /products/search:
+    get:
+      summary: Search products (mock)
+      parameters:
+        - in: query
+          name: keyword
+          schema: { type: string }
+        - in: query
+          name: page
+          schema: { type: integer, minimum: 1, default: 1 }
+        - in: query
+          name: pageSize
+          schema: { type: integer, minimum: 1, maximum: 200, default: 50 }
+      responses:
+        "200":
+          description: OK
+  /products/{productId}:
+    get:
+      summary: Get product detail (mock)
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not found
+  /crawl/jobs:
+    post:
+      summary: Create crawl job
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                keyword: { type: string }
+                productUrl: { type: string }
+                shopId: { type: string }
+                pages: { type: integer, minimum: 1, maximum: 50, default: 5 }
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      jobId: { type: string }
+                      enqueued: { type: boolean }
+  /crawl/jobs/{jobId}:
+    get:
+      summary: Get crawl job
+      parameters:
+        - in: path
+          name: jobId
+          required: true
+          schema: { type: string }
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not found

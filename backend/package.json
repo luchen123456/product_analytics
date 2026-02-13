@@ -1,0 +1,25 @@
+{
+  "name": "product-analytics-backend",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "worker:crawl": "tsx src/worker/crawlOnce.ts",
+    "worker:consume": "tsx src/worker/consumeQueue.ts",
+    "worker:mock-complete": "tsx src/worker/mockCompleteJob.ts"
+  },
+  "dependencies": {
+    "@upstash/redis": "^1.35.3",
+    "nanoid": "^5.1.6",
+    "playwright": "^1.52.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@vercel/node": "^5.3.7",
+    "tsx": "^4.19.2",
+    "typescript": "~5.8.2"
+  }
+}
